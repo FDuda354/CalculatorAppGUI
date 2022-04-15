@@ -11,7 +11,7 @@ public class Button extends JButton
         this.setVisible(true);
       //  this.setText(title);
         this.setFocusable(false);
-
+//
     }
 
 }
