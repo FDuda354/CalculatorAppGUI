@@ -23,6 +23,7 @@ public class MyFrame extends JFrame
         this.setIconImage(logo.getImage());
         this.setTitle("Kalkulator Filipka");
         this.setSize(420,670);
+        this.setLocation(1000,200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.BLACK);
         this.setLayout(null);//wyłączenie layoutu
@@ -305,6 +306,7 @@ public class MyFrame extends JFrame
             s="0";
             label.setText(s);
             nowy=true;
+            click=true;
 
         });
 
