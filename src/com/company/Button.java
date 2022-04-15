@@ -9,7 +9,6 @@ public class Button extends JButton
     {super(title);
         this.setBounds(x, y, width, height);
         this.setVisible(true);
-      //  this.setText(title);
         this.setFocusable(false);
 //
     }
