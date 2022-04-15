@@ -19,8 +19,8 @@ public class MyFrame extends JFrame
 
     MyFrame()
     {
-        ImageIcon logo = new ImageIcon("kalkulatorLogo.png");
-
+        ImageIcon logo = new ImageIcon("AAKK.png");
+        this.setIconImage(logo.getImage());
         this.setTitle("Kalkulator Filipka");
         this.setSize(420,670);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,14 +28,14 @@ public class MyFrame extends JFrame
         this.setLayout(null);//wyłączenie layoutu
         this.setVisible(true);
         this.setResizable(false);// nie mozna zmienic rozmiaru okna
-        //this.setIconImage(logo.getImage());
+
 
 
 
          label.setText("0");
          label.setBounds(0,0,375,120);
          label.setForeground(Color.WHITE);
-         label.setFont(new Font("Arial",Font.BOLD,50));
+         label.setFont(new Font("Arial",Font.BOLD,60));
          label.setHorizontalAlignment(JLabel.RIGHT);
          label.setVerticalAlignment(JLabel.BOTTOM);
          label.setFocusable(false);
