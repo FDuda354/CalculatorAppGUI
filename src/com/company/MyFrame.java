@@ -5,6 +5,8 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static java.lang.Thread.sleep;
+
 public class MyFrame extends JFrame
 {
     boolean click = true;
@@ -16,19 +18,33 @@ public class MyFrame extends JFrame
      boolean nowy=true;
     String s = "0";
     JLabel label = new JLabel();
-
+    JPanel label2 = new JPanel();
     MyFrame()
     {
         ImageIcon logo = new ImageIcon("AAKK.png");
         this.setIconImage(logo.getImage());
         this.setTitle("Kalkulator Filipka");
-        this.setSize(420,670);
+        this.setSize(400,650);
         this.setLocation(1000,200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.BLACK);
-        this.setLayout(null);//wyłączenie layoutu
+        this.setLayout(null);
+        this.setResizable(false);
 
-        this.setResizable(false);// nie mozna zmienic rozmiaru okna
+
+        label2.setBounds(0,120,420,550);
+        label2.setBackground(Color.WHITE);
+        label2.setLayout(null);
+
+
+
+        this.add(label2);
+
+
+        // zrob tak zeby nie mozna było zmieniac szerokości okna ale można zmieniać wysokość
+
+
+       // this.setResizable(false);// nie mozna zmienic rozmiaru okna
 
 
 
@@ -44,44 +60,57 @@ public class MyFrame extends JFrame
          this.add(label);
 
 
-        Button btn1 = new Button("1",0,425,100,100);
+        Button btn1 = new Button("1",0,300,100,100);
         btn1.addActionListener(e ->display("1"));
 
-        Button btn2 = new Button("2",100,425,100,100);
+        Button btn2 = new Button("2",100,300,100,100);
         btn2.addActionListener(e ->display("2"));
 
-        Button btn3 = new Button("3",200,425,100,100);
+        Button btn3 = new Button("3",200,300,100,100);
         btn3.addActionListener(e ->display("3"));
 
-        Button btn4 = new Button("4",0,325,100,100);
+        Button btn4 = new Button("4",0,200,100,100);
         btn4.addActionListener(e ->display("4"));
 
-        Button btn5 = new Button("5",100,325,100,100);
+        Button btn5 = new Button("5",100,200,100,100);
         btn5.addActionListener(e ->display("5"));
 
-        Button btn6= new Button("6",200,325,100,100);
+        Button btn6= new Button("6",200,200,100,100);
         btn6.addActionListener(e -> display("6"));
 
-        Button btn7= new Button("7",0,225,100,100);
+        Button btn7= new Button("7",0,100,100,100);
         btn7.addActionListener(e ->display("7"));
 
-        Button btn8= new Button("8",100,225,100,100);
+        Button btn8= new Button("8",100,100,100,100);
         btn8.addActionListener(e ->display("8"));
 
-        Button btn9= new Button("9",200,225,100,100);
+        Button btn9= new Button("9",200,100,100,100);
         btn9.addActionListener(e ->display("9"));
 
-        Button btn0= new Button("0",0,525,300,100);
+        Button btn0= new Button("0",0,400,300,100);
         btn0.addActionListener(e -> display("0"));
 
 
 
-        Button btnp= new Button(".",100,125,100,100);
+        Button btnp= new Button(".",100,0,100,100);
         btnp.addActionListener(e ->
         {
             if(!s.contains("."))
             {
-                display(".");
+                try
+                {
+                    if(s.equals(""))
+                        s="0.1";
+                    else
+                        display(".");
+                }
+                catch (Exception ex)
+                {
+                    label.setText("spadaj");
+
+                }
+
+
 
             }
 
@@ -92,7 +121,7 @@ public class MyFrame extends JFrame
         //operacje
 
 
-        Button btnr= new Button("%",200,125,100,100);
+        Button btnr= new Button("%",200,0,100,100);
         btnr.addActionListener(e ->
         {
 
@@ -127,7 +156,7 @@ public class MyFrame extends JFrame
 
         });
 
-        Button btneg= new Button("=",300,525,100,100);
+        Button btneg= new Button("=",300,400,100,100);
         btneg.addActionListener(e ->
         {
             switch (op) {
@@ -170,7 +199,7 @@ public class MyFrame extends JFrame
             }
         });
 
-        Button btnpl= new Button("+",300,425,100,100);
+        Button btnpl= new Button("+",300,300,100,100);
         btnpl.addActionListener(e ->
         {
 
@@ -204,7 +233,7 @@ public class MyFrame extends JFrame
 
         });
 
-        Button btnmn= new Button("-",300,325,100,100);
+        Button btnmn= new Button("-",300,200,100,100);
         btnmn.addActionListener(e ->
         {
             if(op=='r'||op=='-')
@@ -236,7 +265,7 @@ public class MyFrame extends JFrame
 
         });
 
-        Button btnml= new Button("X",300,225,100,100);
+        Button btnml= new Button("X",300,100,100,100);
         btnml.addActionListener(e ->
         {
             if(op=='r'||op=='X')
@@ -271,7 +300,7 @@ public class MyFrame extends JFrame
 
         });
 
-        Button btndv= new Button("/",300,125,100,100);
+        Button btndv= new Button("/",300,0,100,100);
         btndv.addActionListener(e ->
         {
             if(op=='r'||op=='/')
@@ -306,7 +335,7 @@ public class MyFrame extends JFrame
 
         });
 
-        Button btnAC= new Button("AC",0,125,100,100);
+        Button btnAC= new Button("AC",0,0,100,100);
         btnAC.addActionListener(e ->
         {
             a=0;
@@ -318,30 +347,37 @@ public class MyFrame extends JFrame
 
         });
 
-       // Button btn= new Button("",100,125,100,100);
-       // btn.setEnabled(false);
 
         //dodanie przyciskow do okna
         {
            // this.add(btn);
-            this.add(btnAC);
-            this.add(btndv);
-            this.add(btnml);
-            this.add(btnmn);
-            this.add(btnpl);
-            this.add(btneg);
-            this.add(btn1);
-            this.add(btn2);
-            this.add(btn3);
-            this.add(btn4);
-            this.add(btn5);
-            this.add(btn6);
-            this.add(btn7);
-            this.add(btn8);
-            this.add(btn9);
-            this.add(btnp);
-            this.add(btnr);
-            this.add(btn0);
+            label2.add(btnAC);
+            label2.add(btnp);
+            label2.add(btnr);
+
+            label2.add(btndv);
+            label2.add(btn7);
+            label2.add(btn8);
+            label2.add(btn9);
+            label2.add(btnml);
+
+            label2.add(btn4);
+            label2.add(btn5);
+            label2.add(btn6);
+            label2.add(btnmn);
+
+            label2.add(btn1);
+            label2.add(btn2);
+            label2.add(btn3);
+
+
+            label2.add(btnpl);
+
+            label2.add(btn0);
+
+
+            label2.add(btneg);
+
             this.setVisible(true);
         }
     }
