@@ -12,7 +12,7 @@ public class MyFrame extends JFrame
     double a=0.0;
     double b=0.0;
      char op='r';
-     boolean jz=false;
+     boolean jz=false,uzycieprzcinka=false;
      boolean nowy=true;
     String s = "0";
     JLabel label = new JLabel();
@@ -27,7 +27,7 @@ public class MyFrame extends JFrame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.BLACK);
         this.setLayout(null);//wyłączenie layoutu
-        this.setVisible(true);
+
         this.setResizable(false);// nie mozna zmienic rozmiaru okna
 
 
@@ -76,12 +76,20 @@ public class MyFrame extends JFrame
 
 
 
+        Button btnp= new Button(".",100,125,100,100);
+        btnp.addActionListener(e ->
+        {
+            if(!s.contains("."))
+            {
+                display(".");
+
+            }
+
+        });
+
+
+
         //operacje
-        Button btnp= new Button(".",200,225,100,100);
-        // ustaw przycisk jako nieaktywny
-        btnp.setEnabled(false);
-        //btnp.addActionListener(e -> op='.');
-       // btnp.addActionListener(e -> b=a);
 
 
         Button btnr= new Button("%",200,125,100,100);
@@ -310,28 +318,32 @@ public class MyFrame extends JFrame
 
         });
 
-        Button btn= new Button("",100,125,100,100);
-        btn.setEnabled(false);
+       // Button btn= new Button("",100,125,100,100);
+       // btn.setEnabled(false);
 
-        this.add(btn);
-        this.add(btnAC);
-        this.add(btndv);
-        this.add(btnml);
-        this.add(btnmn);
-        this.add(btnpl);
-        this.add(btneg);
-        this.add(btn1);
-        this.add(btn2);
-        this.add(btn3);
-        this.add(btn4);
-        this.add(btn5);
-        this.add(btn6);
-        this.add(btn7);
-        this.add(btn8);
-        this.add(btn9);
-        this.add(btnp);
-        this.add(btnr);
-        this.add(btn0);
+        //dodanie przyciskow do okna
+        {
+           // this.add(btn);
+            this.add(btnAC);
+            this.add(btndv);
+            this.add(btnml);
+            this.add(btnmn);
+            this.add(btnpl);
+            this.add(btneg);
+            this.add(btn1);
+            this.add(btn2);
+            this.add(btn3);
+            this.add(btn4);
+            this.add(btn5);
+            this.add(btn6);
+            this.add(btn7);
+            this.add(btn8);
+            this.add(btn9);
+            this.add(btnp);
+            this.add(btnr);
+            this.add(btn0);
+            this.setVisible(true);
+        }
     }
 
     void display(String value)
@@ -348,6 +360,9 @@ public class MyFrame extends JFrame
                 s="";
 
             s = s+value;
+
+            System.out.println(s);
+
             a = Double.parseDouble(s);
 
             label.setText(s);
@@ -402,7 +417,8 @@ public class MyFrame extends JFrame
     }
     void dzielenie()
     {
-
+        if(nowy)
+            b=a*a;
         b/=a;
         a=0;
         s=""+b;
@@ -415,6 +431,8 @@ public class MyFrame extends JFrame
     }
     void mnozenie()
     {
+        if(nowy)
+            b=1;
 
         b*=a;
         a=0;
