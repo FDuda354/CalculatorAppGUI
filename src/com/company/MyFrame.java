@@ -106,7 +106,13 @@ public class MyFrame extends JFrame
                 }
                 catch (Exception ex)
                 {
-                    label.setText("spadaj");
+                    JOptionPane.showMessageDialog(null,"Ta fukncja jeszcze nie działa!","Kalkulator Filipka Beta-Version",JOptionPane.ERROR_MESSAGE);
+                    a=0;
+                    b=0;
+                    s="0";
+                    label.setText(s);
+                    nowy=true;
+                    click=true;
 
                 }
 
