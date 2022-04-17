@@ -8,19 +8,18 @@ import static java.lang.Thread.sleep;
 public class MyFrame extends JFrame
 {
     boolean canClickANumber = true;
-
     double a=0.0;
     double b=0.0;
      char op='r';
-
-    boolean wprowadzonoZnak =false;
+    boolean wprowadzonoZnak =false;// z myślą o przyszłosci!
      boolean jz=false;
      boolean wprowadzonoDrugaLiczbe=false;
      boolean wprowadzonoPierwszaLiczbe=false;
-     boolean nowy=true;
     String s = "0";
+
     JLabel label = new JLabel();
     JPanel label2 = new JPanel();
+
     MyFrame()
     {
         ImageIcon logo = new ImageIcon("AAKK.png");
@@ -33,23 +32,10 @@ public class MyFrame extends JFrame
         this.setLayout(null);
         this.setResizable(false);
 
-
         label2.setBounds(0,120,420,550);
         label2.setBackground(Color.WHITE);
         label2.setLayout(null);
-
-
-
         this.add(label2);
-
-
-        // zrob tak zeby nie mozna było zmieniac szerokości okna ale można zmieniać wysokość
-
-
-       // this.setResizable(false);// nie mozna zmienic rozmiaru okna
-
-
-
 
          label.setText("0");
          label.setBounds(0,0,375,120);
@@ -58,9 +44,7 @@ public class MyFrame extends JFrame
          label.setHorizontalAlignment(JLabel.RIGHT);
          label.setVerticalAlignment(JLabel.BOTTOM);
          label.setFocusable(false);
-
          this.add(label);
-
 
         Button btn1 = new Button("1",0,300,100,100);
         btn1.addActionListener(e ->display("1"));
@@ -92,8 +76,6 @@ public class MyFrame extends JFrame
         Button btn0= new Button("0",0,400,300,100);
         btn0.addActionListener(e -> display("0"));
 
-
-
         Button btnp= new Button(".",100,0,100,100);
         btnp.addActionListener(e ->
         {
@@ -110,12 +92,16 @@ public class MyFrame extends JFrame
                 catch (Exception ex)
                 {
                     JOptionPane.showMessageDialog(null,"Cos poszlo nie tak :/ Sorry!","Kalkulator Filipka Beta-Version",JOptionPane.ERROR_MESSAGE);
-                    a=0;
-                    b=0;
-                    s="0";
+                    canClickANumber = true;
+                    a=0.0;
+                    b=0.0;
+                    op='r';
+                    wprowadzonoZnak =false;// z myślą o przyszłosci!
+                    jz=false;
+                    wprowadzonoDrugaLiczbe=false;
+                    wprowadzonoPierwszaLiczbe=false;
+                    s = "0";
                     label.setText(s);
-                    nowy=true;
-                    canClickANumber =true;
 
                 }
 
@@ -125,15 +111,9 @@ public class MyFrame extends JFrame
 
         });
 
-
-
-        //operacje
-
-
         Button btnr= new Button("%",200,0,100,100);
         btnr.addActionListener(e ->obliczenia('%'));
 
-////////////////////////////////////////
         Button btneg= new Button("=",300,400,100,100);
         btneg.addActionListener(e ->obliczenia('='));
 
@@ -152,10 +132,18 @@ public class MyFrame extends JFrame
         Button btnAC= new Button("AC",0,0,100,100);
         btnAC.addActionListener(e ->
         {
-
+            canClickANumber = true;
+            a=0.0;
+            b=0.0;
+            op='r';
+            wprowadzonoZnak =false;// z myślą o przyszłosci!
+            jz=false;
+            wprowadzonoDrugaLiczbe=false;
+            wprowadzonoPierwszaLiczbe=false;
+            s = "0";
+            label.setText(s);
 
         });
-
 
         //dodanie przyciskow do okna
         {
@@ -190,10 +178,7 @@ public class MyFrame extends JFrame
             this.setVisible(true);
         }
 
-
     }
-
-
 
     void display(String value)
     {
@@ -210,34 +195,19 @@ public class MyFrame extends JFrame
 
             s = s+value;
 
-           // System.out.println(s);
-
             if(wprowadzonoPierwszaLiczbe)
-            {
                 b = Double.parseDouble(s);
-            }
             else
-            {
                 a = Double.parseDouble(s);
-
-            }
-
-
-           // if(!s.equals("0."))
-            //a = Double.parseDouble(s);
 
             label.setText(s);
 
         }
 
-
     }
-
 
 void obliczenia(char opp)
 {
-
-
     if(!wprowadzonoPierwszaLiczbe&&!wprowadzonoDrugaLiczbe&&opp!='=')
     {
         op=opp;
@@ -287,32 +257,6 @@ void obliczenia(char opp)
 
     }
 
-
 }
-
-    void reszta()
-    {
-
-    }
-    void dodawanie()
-    {
-
-    }
-    void odejmowanie()
-    {
-
-
-    }
-    void dzielenie()
-    {
-
-    }
-    void mnozenie()
-    {
-
-
-    }
-
-
 
 }
