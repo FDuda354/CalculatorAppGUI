@@ -2,21 +2,21 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static java.lang.Thread.sleep;
 
 public class MyFrame extends JFrame
 {
-    boolean click = true;
+    boolean canClickANumber = true;
 
     double a=0.0;
     double b=0.0;
      char op='r';
-     boolean pz=false;
-    boolean wybranoznak =false;
-     boolean jz=false,uzycieprzcinka=false;
+
+    boolean wprowadzonoZnak =false;
+     boolean jz=false;
+     boolean wprowadzonoDrugaLiczbe=false;
+     boolean wprowadzonoPierwszaLiczbe=false;
      boolean nowy=true;
     String s = "0";
     JLabel label = new JLabel();
@@ -115,7 +115,7 @@ public class MyFrame extends JFrame
                     s="0";
                     label.setText(s);
                     nowy=true;
-                    click=true;
+                    canClickANumber =true;
 
                 }
 
@@ -131,237 +131,28 @@ public class MyFrame extends JFrame
 
 
         Button btnr= new Button("%",200,0,100,100);
-        btnr.addActionListener(e ->
-        {
-        if(!wybranoznak)
-        {
-            if(op=='r'||op=='%')
-            {
-                op='%';
-                reszta();
-            }
-            else if(op=='-')
-            {
-                op='%';
-                odejmowanie();
-            }
-            else if(op=='X')
-            {
-                op='%';
-                mnozenie();
-            }
-            else if(op=='/')
-            {
-                op='%';
-                dzielenie();
-            }
-            else if(op=='+')
-            {
-                op='%';
-                dodawanie();
-            }
+        btnr.addActionListener(e ->obliczenia('%'));
 
-            wybranoznak=true;
-        }
-
-
-
-        });
 ////////////////////////////////////////
         Button btneg= new Button("=",300,400,100,100);
-        btneg.addActionListener(e ->
-        {
-            System.out.println("a="+a+" b="+b);
-            if(!pz)
-            {
-                if(!wybranoznak)
-                {
-                    switch (op) {
-                        case '+' -> dodawanie();
-
-                        case '-' -> odejmowanie();
-                        case 'X' -> mnozenie();
-                        case '/' -> dzielenie();
-                        case '%' -> reszta();
-
-                    }
-                    pz=true;
-                    wybranoznak=false;
-                    click=false;
-                }
-
-
-            }
-
-
-        });
+        btneg.addActionListener(e ->obliczenia('='));
 
         Button btnpl= new Button("+",300,300,100,100);
-        btnpl.addActionListener(e ->
-        {
-            if(!wybranoznak)
-            {
-
-
-
-                if(op=='r'||op=='+')
-                {
-                    op='+';
-                    dodawanie();
-                }
-                else if(op=='-')
-                {
-                    op='+';
-                    odejmowanie();
-                }
-                else if(op=='X')
-                {
-                    op='+';
-                    mnozenie();
-                }
-                else if(op=='/')
-                {
-                    op='+';
-                    dzielenie();
-                }
-                else if(op=='%')
-                {
-                    op='+';
-                    reszta();
-                }
-
-                wybranoznak=true;
-            }
-
-
-
-        });
+        btnpl.addActionListener(e ->obliczenia('+'));
 
         Button btnmn= new Button("-",300,200,100,100);
-        btnmn.addActionListener(e ->
-        {
-            if(!wybranoznak)
-            {
-                if(op=='r'||op=='-')
-                {
-                    op='-';
-                    odejmowanie();
-                }
-                else if(op=='+')
-                {
-                    op='-';
-                    dodawanie();
-                }
-                else if(op=='X')
-                {
-                    op='-';
-                    mnozenie();
-                }
-                else if(op=='/')
-                {
-                    op='-';
-                    dzielenie();
-                }
-                else if(op=='%')
-                {
-                    op='-';
-                    reszta();
-                }
-                wybranoznak=true;
-            }
-
-
-        });
+        btnmn.addActionListener(e ->obliczenia('-'));
 
         Button btnml= new Button("X",300,100,100,100);
-        btnml.addActionListener(e ->
-        {
-            if(!wybranoznak)
-            {
-                if(op=='r'||op=='X')
-                {
-                    op='X';
-
-                    mnozenie();
-                }
-                else if(op=='+')
-                {
-                    op='X';
-                    dodawanie();
-                }
-                else if(op=='-')
-                {
-                    op='X';
-                    odejmowanie();
-                }
-                else if(op=='/')
-                {
-                    op='X';
-                    dzielenie();
-                }
-                else if(op=='%')
-                {
-                    op='X';
-
-                    reszta();
-
-                }
-
-                wybranoznak=true;
-            }
-
-        });
+        btnml.addActionListener(e ->obliczenia('X'));
 
         Button btndv= new Button("/",300,0,100,100);
-        btndv.addActionListener(e ->
-        {
-            if(!wybranoznak)
-            {
-                if(op=='r'||op=='/')
-                {
-                    op='/';
-
-                    dzielenie();
-                }
-                else if(op=='+')
-                {
-                    op='/';
-                    dodawanie();
-                }
-                else if(op=='-')
-                {
-                    op='/';
-                    odejmowanie();
-                }
-                else if(op=='X')
-                {
-                    op='/';
-
-                    mnozenie();
-                }
-                else if(op=='%')
-                {
-                    op='/';
-
-                    reszta();
-
-                }
-                wybranoznak=true;
-            }
-
-        });
+        btndv.addActionListener(e ->obliczenia('/'));
 
         Button btnAC= new Button("AC",0,0,100,100);
         btnAC.addActionListener(e ->
         {
-            a=0;
-            b=0;
-            s="0";
-            label.setText(s);
-            nowy=true;
-            click=true;
-            pz=false;
-            wybranoznak=false;
+
 
         });
 
@@ -406,7 +197,7 @@ public class MyFrame extends JFrame
 
     void display(String value)
     {
-        if(click)
+        if(canClickANumber)
         {
             if(!jz)
             {
@@ -419,99 +210,106 @@ public class MyFrame extends JFrame
 
             s = s+value;
 
-            System.out.println(s);
-            if(!s.equals("0."))
-            a = Double.parseDouble(s);
+           // System.out.println(s);
+
+            if(wprowadzonoPierwszaLiczbe)
+            {
+                b = Double.parseDouble(s);
+            }
+            else
+            {
+                a = Double.parseDouble(s);
+
+            }
+
+
+           // if(!s.equals("0."))
+            //a = Double.parseDouble(s);
 
             label.setText(s);
+
         }
-        wybranoznak=false;
+
 
     }
 
 
+void obliczenia(char opp)
+{
 
+
+    if(!wprowadzonoPierwszaLiczbe&&!wprowadzonoDrugaLiczbe&&opp!='=')
+    {
+        op=opp;
+        wprowadzonoZnak=true;
+        if(!s.equals(""))
+        wprowadzonoPierwszaLiczbe=true;
+        canClickANumber=true;
+        s="";
+    }
+    if(wprowadzonoPierwszaLiczbe)
+    {
+        if(!s.equals(""))
+        wprowadzonoDrugaLiczbe=true;
+        if(!wprowadzonoDrugaLiczbe)
+        op=opp;
+        wprowadzonoZnak=true;
+        canClickANumber=true;
+        if(opp=='=')
+            canClickANumber =false;
+
+        s="";
+    }
+    if(wprowadzonoDrugaLiczbe)
+    {
+        if(op=='+')
+            a+=b;
+        else if(op=='-')
+            a-=b;
+        else if(op=='X')
+            a*=b;
+        else if(op=='/')
+            a/=b;
+        else if(op=='%')
+            a%=b;
+
+        if(opp=='=')
+            canClickANumber =false;
+
+        op=opp;
+        s=String.valueOf(a);
+        label.setText(String.valueOf(a));
+        b=0;
+        s="";
+        wprowadzonoDrugaLiczbe=false;
+        wprowadzonoPierwszaLiczbe=true;
+        jz=false;
+
+    }
+
+
+}
 
     void reszta()
     {
-        b=b%a;
-        if(nowy)
-            b=a;
 
-
-        //a=0;
-        s=""+b;
-
-        label.setText(s);
-
-        ustawienieBoolean();
-        pz=false;
     }
     void dodawanie()
     {
-        System.out.println("a="+a+" b="+b);
-        if(nowy)
-            b=0;
-        if(!pz)
-        b+=a;
-        //a=0;
-        s=""+b;
 
-        label.setText(s);
-
-        ustawienieBoolean();
-        pz=false;
     }
     void odejmowanie()
     {
 
-        if(nowy)
-            b=a*2;
 
-        if(!pz)
-        b-=a;
-        //a=0;
-        s=""+b;
-
-        label.setText(s);
-
-        ustawienieBoolean();
-        pz=false;
     }
     void dzielenie()
     {
-        if(nowy)
-            b=a*a;
-        if(!pz)
-        b/=a;
-        //a=0;
-        s=""+b;
 
-        label.setText(s);
-
-        ustawienieBoolean();
-        pz=false;
     }
     void mnozenie()
     {
-        if(nowy)
-            b=1;
 
-        if(!pz)
-        b*=a;
-        //a=1;
-        s=""+b;
-
-        label.setText(s);
-
-        ustawienieBoolean(); pz=false;
-
-    }
-    void ustawienieBoolean()
-    {
-        jz=false;
-        nowy=false;
-        click=true;
 
     }
 
