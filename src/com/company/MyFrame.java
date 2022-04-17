@@ -10,11 +10,12 @@ import static java.lang.Thread.sleep;
 public class MyFrame extends JFrame
 {
     boolean click = true;
-    Double dis;
+
     double a=0.0;
     double b=0.0;
      char op='r';
      boolean pz=false;
+    boolean wybranoznak =false;
      boolean jz=false,uzycieprzcinka=false;
      boolean nowy=true;
     String s = "0";
@@ -100,14 +101,15 @@ public class MyFrame extends JFrame
             {
                 try
                 {
-                    if(s.equals(""))
-                        s="0.1";
+                    System.out.println(s);
+                    if(s.equals("0"))
+                        display("0.");
                     else
                         display(".");
                 }
                 catch (Exception ex)
                 {
-                    JOptionPane.showMessageDialog(null,"Ta fukncja jeszcze nie działa!","Kalkulator Filipka Beta-Version",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Cos poszlo nie tak :/ Sorry!","Kalkulator Filipka Beta-Version",JOptionPane.ERROR_MESSAGE);
                     a=0;
                     b=0;
                     s="0";
@@ -131,26 +133,27 @@ public class MyFrame extends JFrame
         Button btnr= new Button("%",200,0,100,100);
         btnr.addActionListener(e ->
         {
-
+        if(!wybranoznak)
+        {
             if(op=='r'||op=='%')
             {
                 op='%';
-               reszta();
+                reszta();
             }
             else if(op=='-')
             {
                 op='%';
-               odejmowanie();
+                odejmowanie();
             }
             else if(op=='X')
             {
                 op='%';
-               mnozenie();
+                mnozenie();
             }
             else if(op=='/')
             {
                 op='%';
-              dzielenie();
+                dzielenie();
             }
             else if(op=='+')
             {
@@ -158,27 +161,35 @@ public class MyFrame extends JFrame
                 dodawanie();
             }
 
+            wybranoznak=true;
+        }
 
 
 
         });
-
+////////////////////////////////////////
         Button btneg= new Button("=",300,400,100,100);
         btneg.addActionListener(e ->
         {
             System.out.println("a="+a+" b="+b);
             if(!pz)
             {
-                switch (op) {
-                    case '+' -> dodawanie();
+                if(!wybranoznak)
+                {
+                    switch (op) {
+                        case '+' -> dodawanie();
 
-                    case '-' -> odejmowanie();
-                    case 'X' -> mnozenie();
-                    case '/' -> dzielenie();
-                    case '%' -> reszta();
+                        case '-' -> odejmowanie();
+                        case 'X' -> mnozenie();
+                        case '/' -> dzielenie();
+                        case '%' -> reszta();
 
+                    }
+                    pz=true;
+                    wybranoznak=false;
+                    click=false;
                 }
-                pz=true;
+
 
             }
 
@@ -188,31 +199,38 @@ public class MyFrame extends JFrame
         Button btnpl= new Button("+",300,300,100,100);
         btnpl.addActionListener(e ->
         {
+            if(!wybranoznak)
+            {
 
-            if(op=='r'||op=='+')
-            {
-                op='+';
-               dodawanie();
-            }
-            else if(op=='-')
-            {
-                op='+';
-               odejmowanie();
-            }
-            else if(op=='X')
-            {
-                op='+';
-              mnozenie();
-            }
-            else if(op=='/')
-            {
-                op='+';
-               dzielenie();
-            }
-            else if(op=='%')
-            {
-                op='+';
-               reszta();
+
+
+                if(op=='r'||op=='+')
+                {
+                    op='+';
+                    dodawanie();
+                }
+                else if(op=='-')
+                {
+                    op='+';
+                    odejmowanie();
+                }
+                else if(op=='X')
+                {
+                    op='+';
+                    mnozenie();
+                }
+                else if(op=='/')
+                {
+                    op='+';
+                    dzielenie();
+                }
+                else if(op=='%')
+                {
+                    op='+';
+                    reszta();
+                }
+
+                wybranoznak=true;
             }
 
 
@@ -222,30 +240,34 @@ public class MyFrame extends JFrame
         Button btnmn= new Button("-",300,200,100,100);
         btnmn.addActionListener(e ->
         {
-            if(op=='r'||op=='-')
+            if(!wybranoznak)
             {
-                op='-';
-                odejmowanie();
-            }
-            else if(op=='+')
-            {
-                op='-';
-               dodawanie();
-            }
-            else if(op=='X')
-            {
-                op='-';
-                mnozenie();
-            }
-            else if(op=='/')
-            {
-                op='-';
-               dzielenie();
-            }
-            else if(op=='%')
-            {
-                op='-';
-               reszta();
+                if(op=='r'||op=='-')
+                {
+                    op='-';
+                    odejmowanie();
+                }
+                else if(op=='+')
+                {
+                    op='-';
+                    dodawanie();
+                }
+                else if(op=='X')
+                {
+                    op='-';
+                    mnozenie();
+                }
+                else if(op=='/')
+                {
+                    op='-';
+                    dzielenie();
+                }
+                else if(op=='%')
+                {
+                    op='-';
+                    reszta();
+                }
+                wybranoznak=true;
             }
 
 
@@ -254,69 +276,77 @@ public class MyFrame extends JFrame
         Button btnml= new Button("X",300,100,100,100);
         btnml.addActionListener(e ->
         {
-            if(op=='r'||op=='X')
+            if(!wybranoznak)
             {
-                op='X';
+                if(op=='r'||op=='X')
+                {
+                    op='X';
 
-                mnozenie();
-            }
-            else if(op=='+')
-            {
-                op='X';
-               dodawanie();
-            }
-            else if(op=='-')
-            {
-                op='X';
-             odejmowanie();
-            }
-            else if(op=='/')
-            {
-                op='X';
-                dzielenie();
-            }
-            else if(op=='%')
-            {
-                op='X';
+                    mnozenie();
+                }
+                else if(op=='+')
+                {
+                    op='X';
+                    dodawanie();
+                }
+                else if(op=='-')
+                {
+                    op='X';
+                    odejmowanie();
+                }
+                else if(op=='/')
+                {
+                    op='X';
+                    dzielenie();
+                }
+                else if(op=='%')
+                {
+                    op='X';
 
-               reszta();
+                    reszta();
 
+                }
+
+                wybranoznak=true;
             }
-
 
         });
 
         Button btndv= new Button("/",300,0,100,100);
         btndv.addActionListener(e ->
         {
-            if(op=='r'||op=='/')
+            if(!wybranoznak)
             {
-                op='/';
+                if(op=='r'||op=='/')
+                {
+                    op='/';
 
-               dzielenie();
-            }
-            else if(op=='+')
-            {
-                op='/';
-               dodawanie();
-            }
-            else if(op=='-')
-            {
-                op='/';
-               odejmowanie();
-            }
-            else if(op=='X')
-            {
-                op='/';
+                    dzielenie();
+                }
+                else if(op=='+')
+                {
+                    op='/';
+                    dodawanie();
+                }
+                else if(op=='-')
+                {
+                    op='/';
+                    odejmowanie();
+                }
+                else if(op=='X')
+                {
+                    op='/';
 
-               mnozenie();
-            }
-            else if(op=='%')
-            {
-                op='/';
+                    mnozenie();
+                }
+                else if(op=='%')
+                {
+                    op='/';
 
-                reszta();
+                    reszta();
 
+                }
+                wybranoznak=true;
             }
 
         });
@@ -331,6 +361,7 @@ public class MyFrame extends JFrame
             nowy=true;
             click=true;
             pz=false;
+            wybranoznak=false;
 
         });
 
@@ -367,7 +398,11 @@ public class MyFrame extends JFrame
 
             this.setVisible(true);
         }
+
+
     }
+
+
 
     void display(String value)
     {
@@ -385,13 +420,17 @@ public class MyFrame extends JFrame
             s = s+value;
 
             System.out.println(s);
-
+            if(!s.equals("0."))
             a = Double.parseDouble(s);
 
             label.setText(s);
         }
+        wybranoznak=false;
 
     }
+
+
+
 
     void reszta()
     {
