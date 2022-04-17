@@ -14,6 +14,7 @@ public class MyFrame extends JFrame
     double a=0.0;
     double b=0.0;
      char op='r';
+     boolean pz=false;
      boolean jz=false,uzycieprzcinka=false;
      boolean nowy=true;
     String s = "0";
@@ -165,44 +166,23 @@ public class MyFrame extends JFrame
         Button btneg= new Button("=",300,400,100,100);
         btneg.addActionListener(e ->
         {
-            switch (op) {
-                case '+' -> {
-                    dis = (b + a);
-                    dis = BigDecimal.valueOf(dis).setScale(5, RoundingMode.HALF_UP).doubleValue();
-                    s = "" + dis;
-                    label.setText(s);
-                    click = false;
-                }
-                case '-' -> {
-                    dis = (b - a);
-                    dis = BigDecimal.valueOf(dis).setScale(5, RoundingMode.HALF_UP).doubleValue();
-                    s = "" + dis;
-                    label.setText(s);
-                    click = false;
-                }
-                case 'X' -> {
-                    dis = (b * a);
-                    dis = BigDecimal.valueOf(dis).setScale(5, RoundingMode.HALF_UP).doubleValue();
-                    s = "" + dis;
-                    label.setText(s);
-                    click = false;
-                }
-                case '/' -> {
-                    dis = (b / a);
-                    dis = BigDecimal.valueOf(dis).setScale(5, RoundingMode.HALF_UP).doubleValue();
-                    s = "" + dis;
-                    label.setText(s);
-                    click = false;
+            System.out.println("a="+a+" b="+b);
+            if(!pz)
+            {
+                switch (op) {
+                    case '+' -> dodawanie();
+
+                    case '-' -> odejmowanie();
+                    case 'X' -> mnozenie();
+                    case '/' -> dzielenie();
+                    case '%' -> reszta();
 
                 }
-                case '%' -> {
-                    dis = (b % a);
-                    dis = BigDecimal.valueOf(dis).setScale(5, RoundingMode.HALF_UP).doubleValue();
-                    s = "" + dis;
-                    label.setText(s);
-                    click = false;
-                }
+                pz=true;
+
             }
+
+
         });
 
         Button btnpl= new Button("+",300,300,100,100);
@@ -350,6 +330,7 @@ public class MyFrame extends JFrame
             label.setText(s);
             nowy=true;
             click=true;
+            pz=false;
 
         });
 
@@ -414,31 +395,33 @@ public class MyFrame extends JFrame
 
     void reszta()
     {
-
         b=b%a;
         if(nowy)
             b=a;
-        a=0;
+
+
+        //a=0;
         s=""+b;
 
         label.setText(s);
 
-        jz=false;
-        nowy=false;
-        click=true;
+        ustawienieBoolean();
+        pz=false;
     }
     void dodawanie()
     {
-
+        System.out.println("a="+a+" b="+b);
+        if(nowy)
+            b=0;
+        if(!pz)
         b+=a;
-        a=0;
+        //a=0;
         s=""+b;
 
         label.setText(s);
 
-        jz=false;
-        nowy=false;
-        click=true;
+        ustawienieBoolean();
+        pz=false;
     }
     void odejmowanie()
     {
@@ -446,45 +429,51 @@ public class MyFrame extends JFrame
         if(nowy)
             b=a*2;
 
-
+        if(!pz)
         b-=a;
-        a=0;
+        //a=0;
         s=""+b;
 
         label.setText(s);
 
-        jz=false;
-        nowy=false;
-        click=true;
+        ustawienieBoolean();
+        pz=false;
     }
     void dzielenie()
     {
         if(nowy)
             b=a*a;
+        if(!pz)
         b/=a;
-        a=0;
+        //a=0;
         s=""+b;
 
         label.setText(s);
 
-        jz=false;
-        nowy=false;
-        click=true;
+        ustawienieBoolean();
+        pz=false;
     }
     void mnozenie()
     {
         if(nowy)
             b=1;
 
+        if(!pz)
         b*=a;
-        a=0;
+        //a=1;
         s=""+b;
 
         label.setText(s);
 
+        ustawienieBoolean(); pz=false;
+
+    }
+    void ustawienieBoolean()
+    {
         jz=false;
         nowy=false;
         click=true;
+
     }
 
 
