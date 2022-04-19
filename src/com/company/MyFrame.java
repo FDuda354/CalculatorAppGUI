@@ -25,14 +25,14 @@ public class MyFrame extends JFrame
         ImageIcon logo = new ImageIcon("AAKK.png");
         this.setIconImage(logo.getImage());
         this.setTitle("Kalkulator Filipka");
-        this.setSize(400,650);
+        this.setSize(400,750);
         this.setLocation(1000,200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setBackground(Color.BLACK);
         this.setLayout(null);
         this.setResizable(false);
 
-        label2.setBounds(0,120,420,550);
+        label2.setBounds(0,120,420,650);
         label2.setBackground(Color.WHITE);
         label2.setLayout(null);
         this.add(label2);
@@ -46,44 +46,43 @@ public class MyFrame extends JFrame
          label.setFocusable(false);
          this.add(label);
 
-        Button btn1 = new Button("1",0,300,100,100);
+        Button btn1 = new Button("1",0,400,100,100);
         btn1.addActionListener(e ->display("1"));
 
-        Button btn2 = new Button("2",100,300,100,100);
+        Button btn2 = new Button("2",100,400,100,100);
         btn2.addActionListener(e ->display("2"));
 
-        Button btn3 = new Button("3",200,300,100,100);
+        Button btn3 = new Button("3",200,400,100,100);
         btn3.addActionListener(e ->display("3"));
 
-        Button btn4 = new Button("4",0,200,100,100);
+        Button btn4 = new Button("4",0,300,100,100);
         btn4.addActionListener(e ->display("4"));
 
-        Button btn5 = new Button("5",100,200,100,100);
+        Button btn5 = new Button("5",100,300,100,100);
         btn5.addActionListener(e ->display("5"));
 
-        Button btn6= new Button("6",200,200,100,100);
+        Button btn6= new Button("6",200,300,100,100);
         btn6.addActionListener(e -> display("6"));
 
-        Button btn7= new Button("7",0,100,100,100);
+        Button btn7= new Button("7",0,200,100,100);
         btn7.addActionListener(e ->display("7"));
 
-        Button btn8= new Button("8",100,100,100,100);
+        Button btn8= new Button("8",100,200,100,100);
         btn8.addActionListener(e ->display("8"));
 
-        Button btn9= new Button("9",200,100,100,100);
+        Button btn9= new Button("9",200,200,100,100);
         btn9.addActionListener(e ->display("9"));
 
-        Button btn0= new Button("0",0,400,300,100);
+        Button btn0= new Button("0",0,500,300,100);
         btn0.addActionListener(e -> display("0"));
 
-        Button btnp= new Button(".",100,0,100,100);
+        Button btnp= new Button(".",100,100,100,100);
         btnp.addActionListener(e ->
         {
             if(!s.contains("."))
             {
                 try
                 {
-                    System.out.println(s);
                     if(s.equals("0"))
                         display("0.");
                     else
@@ -111,25 +110,25 @@ public class MyFrame extends JFrame
 
         });
 
-        Button btnr= new Button("%",200,0,100,100);
+        Button btnr= new Button("R",200,100,100,100);
         btnr.addActionListener(e ->obliczenia('%'));
 
-        Button btneg= new Button("=",300,400,100,100);
+        Button btneg= new Button("=",300,500,100,100);
         btneg.addActionListener(e ->obliczenia('='));
 
-        Button btnpl= new Button("+",300,300,100,100);
+        Button btnpl= new Button("+",300,400,100,100);
         btnpl.addActionListener(e ->obliczenia('+'));
 
-        Button btnmn= new Button("-",300,200,100,100);
+        Button btnmn= new Button("-",300,300,100,100);
         btnmn.addActionListener(e ->obliczenia('-'));
 
-        Button btnml= new Button("X",300,100,100,100);
+        Button btnml= new Button("X",300,200,100,100);
         btnml.addActionListener(e ->obliczenia('X'));
 
-        Button btndv= new Button("/",300,0,100,100);
+        Button btndv= new Button("/",300,100,100,100);
         btndv.addActionListener(e ->obliczenia('/'));
 
-        Button btnAC= new Button("AC",0,0,100,100);
+        Button btnAC= new Button("AC",0,100,100,100);
         btnAC.addActionListener(e ->
         {
             canClickANumber = true;
@@ -142,6 +141,39 @@ public class MyFrame extends JFrame
             wprowadzonoPierwszaLiczbe=false;
             s = "0";
             label.setText(s);
+
+        });
+
+        Button btnP= new Button("<",0,0,100,100);
+        btnP.addActionListener(e ->
+        {
+            System.out.println(s);
+        if(canClickANumber)
+        {
+            // canClickANumber = true;
+            //usun ostatni znak z s
+            if(s.length()>0)
+            {
+                s = s.substring(0,s.length()-1);
+            }
+            label.setText(s);
+            System.out.println(s);
+            System.out.println(s);
+
+
+            if(s.length()==0)
+            {
+                s="0";
+                label.setText(s);
+
+            }
+            if(wprowadzonoPierwszaLiczbe)
+                b = Double.parseDouble(s);
+            else
+                a = Double.parseDouble(s);
+        }
+
+
 
         });
 
@@ -174,6 +206,7 @@ public class MyFrame extends JFrame
 
 
             label2.add(btneg);
+            label2.add(btnP);
 
             this.setVisible(true);
         }
@@ -226,7 +259,13 @@ void obliczenia(char opp)
         wprowadzonoZnak=true;
         canClickANumber=true;
         if(opp=='=')
+        {
             canClickANumber =false;
+            System.out.println("a = "+a);
+            System.out.println("b = "+b);
+
+        }
+
 
         s="";
     }
@@ -239,7 +278,12 @@ void obliczenia(char opp)
         else if(op=='X')
             a*=b;
         else if(op=='/')
-            a/=b;
+        {
+            if(b==0)
+                a=0;
+            else
+                a/=b;
+        }
         else if(op=='%')
             a%=b;
 
