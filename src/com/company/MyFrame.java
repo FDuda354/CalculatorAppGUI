@@ -76,13 +76,22 @@ public class MyFrame extends JFrame
         Button btn0= new Button("0",0,500,300,100);
         btn0.addActionListener(e -> display("0"));
 
-        Button btnp= new Button(".",100,100,100,100);
+        ///////////////////////////////////////
+        Button WBA= new Button("WBA",300,0,100,100);
+        WBA.setBackground(new Color(172,172,172));
+        WBA.setFont(new Font("Arial",Font.BOLD,15));
+        WBA.addActionListener(e ->  JOptionPane.showMessageDialog(null,"Will be available!","Kalkulator Filipka Beta-Version",JOptionPane.INFORMATION_MESSAGE));
+        /////////////////////////////////////////
+
+        Button btnp= new Button(".",200,0,100,100);
+        btnp.setBackground(new Color(172,172,172));
         btnp.addActionListener(e ->
         {
-            if(!s.contains("."))
+            if(!s.contains(".")&&!wprowadzonoZnak)
             {
                 try
                 {
+                    System.out.println(s);
                     if(s.equals("0"))
                         display("0.");
                     else
@@ -110,25 +119,60 @@ public class MyFrame extends JFrame
 
         });
 
-        Button btnr= new Button("R",200,100,100,100);
-        btnr.addActionListener(e ->obliczenia('%'));
+        Button btnr= new Button("R",0,100,100,100);
+        btnr.setBackground(new Color(254,127,0));
+        btnr.addActionListener(e ->obliczenia('R'));
+
+        Button btnpow= new Button("^",100,100,100,100);
+        btnpow.setBackground(new Color(254,127,0));
+        btnpow.addActionListener(e ->obliczenia('^'));
 
         Button btneg= new Button("=",300,500,100,100);
+        btneg.setBackground(new Color(42,242,75));
         btneg.addActionListener(e ->obliczenia('='));
 
         Button btnpl= new Button("+",300,400,100,100);
+        btnpl.setBackground(new Color(254,127,0));
         btnpl.addActionListener(e ->obliczenia('+'));
 
         Button btnmn= new Button("-",300,300,100,100);
+        btnmn.setBackground(new Color(254,127,0));
         btnmn.addActionListener(e ->obliczenia('-'));
 
         Button btnml= new Button("X",300,200,100,100);
+        btnml.setBackground(new Color(254,127,0));
         btnml.addActionListener(e ->obliczenia('X'));
 
         Button btndv= new Button("/",300,100,100,100);
+        btndv.setBackground(new Color(254,127,0));
         btndv.addActionListener(e ->obliczenia('/'));
 
-        Button btnAC= new Button("AC",0,100,100,100);
+        Button btnpr= new Button("%",200,100,100,100);
+        btnpr.setBackground(new Color(254,127,0));
+        btnpr.addActionListener(e ->
+                        {
+
+                            if(wprowadzonoPierwszaLiczbe)
+                            {
+                                b = Double.parseDouble(s);
+                                b /= 100;
+                                s = Double.toString(b);
+                            }
+
+                            else
+                            {
+                                a = Double.parseDouble(s);
+                                a /= 100;
+                                s=Double.toString(a);
+                            }
+
+                            label.setText(s);
+                            System.out.println(s);
+                            canClickANumber = false;
+                        });
+
+        Button btnAC= new Button("AC",0,0,100,100);
+        btnAC.setBackground(new Color(172,172,172));
         btnAC.addActionListener(e ->
         {
             canClickANumber = true;
@@ -139,12 +183,15 @@ public class MyFrame extends JFrame
             jz=false;
             wprowadzonoDrugaLiczbe=false;
             wprowadzonoPierwszaLiczbe=false;
+            label.setFont(new Font("Arial",Font.BOLD,60));
+
             s = "0";
             label.setText(s);
 
         });
 
-        Button btnP= new Button("<",0,0,100,100);
+        Button btnP= new Button("<",100,0,100,100);
+        btnP.setBackground(new Color(172,172,172));
         btnP.addActionListener(e ->
         {
             System.out.println(s);
@@ -157,7 +204,6 @@ public class MyFrame extends JFrame
                 s = s.substring(0,s.length()-1);
             }
             label.setText(s);
-            System.out.println(s);
             System.out.println(s);
 
 
@@ -203,10 +249,13 @@ public class MyFrame extends JFrame
             label2.add(btnpl);
 
             label2.add(btn0);
+            label2.add(btnpow);
 
 
             label2.add(btneg);
             label2.add(btnP);
+            label2.add(btnpr);
+            label2.add(WBA);
 
             this.setVisible(true);
         }
@@ -215,6 +264,9 @@ public class MyFrame extends JFrame
 
     void display(String value)
     {
+
+
+
         if(canClickANumber)
         {
             if(!jz)
@@ -227,6 +279,7 @@ public class MyFrame extends JFrame
                 s="";
 
             s = s+value;
+            checkSize(s);
 
             if(wprowadzonoPierwszaLiczbe)
                 b = Double.parseDouble(s);
@@ -238,6 +291,50 @@ public class MyFrame extends JFrame
         }
 
     }
+
+    void checkSize(String s)
+    {
+        if(s.length()<11)
+            label.setFont(new Font("Arial",Font.BOLD,60));
+        else if(s.length()>11&&s.length()<17)
+        label.setFont(new Font("Arial",Font.BOLD,40));
+        else if(s.length()>16&&s.length()<22)
+            label.setFont(new Font("Arial",Font.BOLD,30));
+        else if(s.length()>21&&s.length()<30)
+            label.setFont(new Font("Arial",Font.BOLD,20));
+        else if (s.length()>28)
+        {
+            try
+            {
+                s = s.substring(0,28);
+                label.setFont(new Font("Arial",Font.BOLD,20));
+
+            }
+            catch (Exception ex)
+            {
+                JOptionPane.showMessageDialog(null,"Cos poszlo nie tak :/ Sorry!","Kalkulator Filipka Beta-Version",JOptionPane.ERROR_MESSAGE);
+                canClickANumber = true;
+                a=0.0;
+                b=0.0;
+                op='r';
+                wprowadzonoZnak =false;// z myślą o przyszłosci!
+                jz=false;
+                wprowadzonoDrugaLiczbe=false;
+                wprowadzonoPierwszaLiczbe=false;
+                s = "0";
+                label.setFont(new Font("Arial",Font.BOLD,60));
+                label.setText(s);
+
+            }
+        }
+
+
+
+
+
+
+    }
+
 
 void obliczenia(char opp)
 {
@@ -284,15 +381,20 @@ void obliczenia(char opp)
             else
                 a/=b;
         }
-        else if(op=='%')
+        else if(op=='R')
             a%=b;
+        else if(op=='^')
+            a=Math.pow(a,b);
+
+
 
         if(opp=='=')
             canClickANumber =false;
 
         op=opp;
         s=String.valueOf(a);
-        label.setText(String.valueOf(a));
+        checkSize(s);
+        label.setText(String.valueOf(s));
         b=0;
         s="";
         wprowadzonoDrugaLiczbe=false;
