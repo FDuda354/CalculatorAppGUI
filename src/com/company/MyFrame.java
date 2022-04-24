@@ -152,14 +152,14 @@ public class MyFrame extends JFrame
         btnpr.addActionListener(e ->
                         {
 
-                            if(wprowadzonoPierwszaLiczbe)
+                            if(wprowadzonoPierwszaLiczbe&&canClickANumber)
                             {
                                 b = Double.parseDouble(s);
                                 b /= 100;
                                 s = Double.toString(b);
                             }
 
-                            else
+                            else if(!wprowadzonoPierwszaLiczbe&&canClickANumber)
                             {
                                 a = Double.parseDouble(s);
                                 a /= 100;
